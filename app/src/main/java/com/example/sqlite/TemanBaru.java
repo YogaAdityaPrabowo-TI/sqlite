@@ -8,14 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.sqlite.R;
 import com.example.sqlite.database.DBController;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.HashMap;
 
 public class TemanBaru extends AppCompatActivity {
-    private TextInputEditText tNama,tTelpon;
-    private Button simpanBtn;
+    private TextInputEditText tNama, tTelpon;
+    private Button savebtn;
     String nm,tlp;
     DBController controller = new DBController(this);
 
@@ -26,14 +27,14 @@ public class TemanBaru extends AppCompatActivity {
 
         tNama = (TextInputEditText)findViewById(R.id.tietNama);
         tTelpon = (TextInputEditText)findViewById(R.id.tietTelpon);
-        simpanBtn = (Button)findViewById(R.id.buttonSave);
+        savebtn = (Button)findViewById(R.id.buttonSave);
 
-        simpanBtn.setOnClickListener(new View.OnClickListener() {
+        savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tNama.getText().toString().equals("")||tTelpon.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Data belum Komplit !", Toast.LENGTH_SHORT).show();
-                }else{
+                if (tNama.getText().toString().isEmpty() || tTelpon.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Data belum Komplit !", Toast.LENGTH_SHORT).show();
+                }else {
                     nm = tNama.getText().toString();
                     tlp = tTelpon.getText().toString();
 
@@ -43,15 +44,15 @@ public class TemanBaru extends AppCompatActivity {
 
                     controller.insertData(qvalues);
                     callHome();
-
                 }
             }
         });
     }
 
-    public void callHome() {
-        Intent intent = new Intent(TemanBaru.this, MainActivity.class);
+    public void callHome(){
+        Intent intent = new Intent(TemanBaru.this,MainActivity.class);
         startActivity(intent);
         finish();
     }
+
 }
